@@ -1,0 +1,39 @@
+
+# See http://releases.llvm.org/8.0.0/projects/libcxx/docs/UsingLibcxx.html#using-filesystem-and-libc-fs
+CXXFLAGS = -std=c++17 -O0 -g -Wall -Werror -Wextra -Wno-unused-parameter -pedantic $(INCLUDES)
+
+LDLIBS = -lstdc++fs
+
+CXXOBJS = $(patsubst %.cc, %.o, $(CXXSRCS))
+
+CXXEXECS = $(patsubst %.cc, %, $(CXXSRCS))
+
+.PHONY: all test testv leak-check clean
+
+all:: $(CXXEXECS)
+
+test:: $(CXXEXECS)
+	@sleep 1
+	$(patsubst %, ./%; ,$^)
+
+testv:: $(CXXEXECS)
+	@sleep 1
+	$(patsubst %, ./% -s; ,$^)
+
+leak-check:: $(CXXEXECS)
+	$(patsubst %, valgrind --leak-check=yes ./%; ,$^)
+
+clean::
+	-rm -rf $(CXXEXECS) $(CXXOBJS)
+
+.PHONY: docker-build docker-run docker-exec
+
+docker-build:
+	docker build -t $(IMAGE):$(TAG) -f Dockerfile .
+
+docker-run:
+	docker run --name $(NAME) --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --rm -it -v $(PWD):/src $(IMAGE):$(TAG)
+
+docker-exec:
+	docker exec -it $(NAME) /bin/bash
+
