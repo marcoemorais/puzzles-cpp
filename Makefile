@@ -5,6 +5,7 @@ TAG=local
 action?=test
 
 DIRS := \
+	random/urngfromflip \
 	sorts/mwaymergesort
 
 .PHONY: all $(DIRS)
