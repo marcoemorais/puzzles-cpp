@@ -46,7 +46,7 @@ to the second.
 ---
 ## References
 
-This problem appeas as Problem 10.3 in
+This problem appears as Problem 10.3 in
 <cite data-cite="miller2019daily">(Miller and Wu, 2019)</cite>.
 
 ```

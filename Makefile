@@ -7,6 +7,7 @@ action?=test
 DIRS := \
 	array/spiral2d \
 	divide-and-conquer/indexisvalue \
+	dynamic-programming/staircase \
 	graph/stepword \
 	hash/patmatch \
 	heap/topkmovies \
