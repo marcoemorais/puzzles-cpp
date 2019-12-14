@@ -6,6 +6,7 @@ action?=test
 
 DIRS := \
 	array/spiral2d \
+	divide-and-conquer/indexisvalue \
 	graph/stepword \
 	heap/topkmovies \
 	random/urngfromflip \
