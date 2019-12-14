@@ -6,6 +6,7 @@ action?=test
 
 DIRS := \
 	arrays/spiral2d \
+	heaps/topkmovies \
 	random/urngfromflip \
 	sorts/mwaymergesort
 
