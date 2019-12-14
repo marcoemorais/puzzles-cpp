@@ -5,10 +5,10 @@ TAG=local
 action?=test
 
 DIRS := \
-	arrays/spiral2d \
-	heaps/topkmovies \
+	array/spiral2d \
+	heap/topkmovies \
 	random/urngfromflip \
-	sorts/mwaymergesort
+	sort/mwaymergesort
 
 .PHONY: all $(DIRS)
 
