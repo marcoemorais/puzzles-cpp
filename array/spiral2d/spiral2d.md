@@ -38,7 +38,7 @@ Expected clockwise spiral traversal starting from top-left corner.
 * Repeat the traversal algorithm until the number of cells visited equals the
   number of cells in the matrix.
 
---
+---
 ## References
 
 

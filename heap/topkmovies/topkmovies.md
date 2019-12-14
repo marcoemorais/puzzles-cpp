@@ -11,13 +11,15 @@ form (movie1, movie2, score) in ascending order by score.
 ## Additional Details
 
 Use intersection over union
-([Jaccard](https://en.wikipedia.org/wiki/Jaccard_index) to compute the
+([Jaccard](https://en.wikipedia.org/wiki/Jaccard_index)) to compute the
 similarity between sets.
 
-For example, given
-    movie1 : { user1, user2, user3 }
-    movie2 : { user2, user3, user4 }
-    J(movie1, movie2) =  2 / 4 = 0.5
+Example Jaccard index for a pair of movies.
+```
+movie1 : { user1, user2, user3 }
+movie2 : { user2, user3, user4 }
+J(movie1, movie2) =  2/4 = 0.5
+```
 
 ---
 ## Examples
@@ -35,7 +37,7 @@ Use a min heap to maintain the top-k highest similarity scores.
 
 Copy and return the elements from the heap in a vector.
 
---
+---
 ## References
 
 

@@ -45,7 +45,7 @@ distributed.
     * If the decimal value urand is outside the range, obtain another m bits.
     * Else return the value a + urand as the random number.
 
---
+---
 ## References
 
 

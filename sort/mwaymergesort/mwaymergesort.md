@@ -17,10 +17,10 @@ Describe the worst case runtime performance of the solution.
 ---
 ## Solution
 Parameterize the solution with some variables.
-    * m is the total number of integers to sort (100k)
-    * k is the maximum number of integers in memory at any time (10k)
-    * p=m/k is the number of splits the input file will be divided into (10)
-    * q=k/p is the number of integers kept in memory from a single split (1k)
+* m is the total number of integers to sort (100k)
+* k is the maximum number of integers in memory at any time (10k)
+* p=m/k is the number of splits the input file will be divided into (10)
+* q=k/p is the number of integers kept in memory from a single split (1k)
 
 1. Read input file into p (10) chunks of size k (10k).
 2. Sort each chunk and write the sorted chunk to an output temporary file.
@@ -56,7 +56,7 @@ In order to fully satisfy the requirement on the maximum number of integers
 in memory, the sorting algorithm used for the temporary files should require
 no additional storage.  This eliminates mergesort, but quicksort satisfies.
 
---
+---
 ## References
 
 This problem and solution are inspired by section 4.8 of
