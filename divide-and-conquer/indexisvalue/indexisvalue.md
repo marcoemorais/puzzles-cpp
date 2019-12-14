@@ -52,7 +52,7 @@ matches value.
 ---
 ## References
 
-This problem appears as Problem 3.3 of
+This problem appears as Problem 3.3 in
 <cite data-cite="roughgarden2017algorithms">(Roughgarden, 2017)</cite>.
 
 ```

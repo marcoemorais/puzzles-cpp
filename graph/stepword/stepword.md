@@ -46,4 +46,17 @@ to the second.
 ---
 ## References
 
+This problem appeas as Problem 10.3 in
+<cite data-cite="miller2019daily">(Miller and Wu, 2019)</cite>.
+
+```
+@book{miller2019daily,
+  title={Daily Coding Problem: Get Exceptionally Good at Coding Interviews by Solving One Problem Every Day},
+  author={Miller, A. and Wu, L.},
+  isbn={9781793296634},
+  url={https://books.google.com/books?id=Fz29wQEACAAJ},
+  year={2019},
+  publisher={INDEPENDENTLY PUBLISHED}
+}
+```
 
