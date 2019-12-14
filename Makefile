@@ -5,6 +5,7 @@ TAG=local
 action?=test
 
 DIRS := \
+	arrays/spiral2d \
 	random/urngfromflip \
 	sorts/mwaymergesort
 
