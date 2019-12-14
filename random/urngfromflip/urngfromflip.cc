@@ -15,7 +15,7 @@ std::uint8_t
 flip()
 {
     thread_local std::mt19937 gen{std::random_device{}()};
-    constexpr double a = 0., b = 1., bias = 0.5;
+    static constexpr double a = 0., b = 1., bias = 0.5;
     std::uniform_int_distribution<> dis(a, b);
     // NOTE(mmorais): Alter the value of bias to observe in change in chisq.
     return dis(gen) < bias ? 0 : 1;
