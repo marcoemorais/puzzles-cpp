@@ -8,6 +8,7 @@ DIRS := \
 	array/spiral2d \
 	divide-and-conquer/indexisvalue \
 	graph/stepword \
+	hash/patmatch \
 	heap/topkmovies \
 	random/urngfromflip \
 	sort/mwaymergesort
