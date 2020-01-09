@@ -36,20 +36,20 @@ T fastpow(const T& y, const IntegerT& x)
 // is_bidirectional_iterator returns true when iterator is bidirectional.
 template<typename iterator>
 using is_bidirectional_iterator =
-	std::disjunction<
-  		std::is_same<
-			typename std::iterator_traits<iterator>::iterator_category,
-			std::bidirectional_iterator_tag>,
-		// Without this disjunction, random access iterators fail to qualify.
-  		std::is_same<
-			typename std::iterator_traits<iterator>::iterator_category,
-			std::random_access_iterator_tag>
-	>;
+    std::disjunction<
+        std::is_same<
+            typename std::iterator_traits<iterator>::iterator_category,
+            std::bidirectional_iterator_tag>,
+        // Without this disjunction, random access iterators fail to qualify.
+        std::is_same<
+            typename std::iterator_traits<iterator>::iterator_category,
+            std::random_access_iterator_tag>
+    >;
 
 // rolling_hash computes hash of [first, last) in O(1) using prior hash value.
 template <typename Iter,
-		  typename HashT=std::uint64_t,
-		  std::enable_if_t<is_bidirectional_iterator<Iter>::value>* = nullptr>
+          typename HashT=std::uint64_t,
+          std::enable_if_t<is_bidirectional_iterator<Iter>::value>* = nullptr>
 HashT
 rolling_hash(Iter first, Iter last, const HashT& previous=0)
 {
@@ -62,10 +62,10 @@ rolling_hash(Iter first, Iter last, const HashT& previous=0)
         // value immediately preceeding the last to the new hash.
         hash = previous;
         auto len = std::distance(first, last);
-		--first;
+        --first;
         hash -= *first * fastpow(base, len-1);
-		--last;
-		hash = (hash*base) + *last;
+        --last;
+        hash = (hash*base) + *last;
     }
     else {
         // Compute a new hash by traversing from [first, last).
@@ -79,7 +79,7 @@ rolling_hash(Iter first, Iter last, const HashT& previous=0)
 
 // patmatch finds the first occurrence of a pattern in sequence [first, last).
 template <typename Iter,
-		  std::enable_if_t<is_bidirectional_iterator<Iter>::value>* = nullptr>
+          std::enable_if_t<is_bidirectional_iterator<Iter>::value>* = nullptr>
 std::optional<Iter>
 patmatch(Iter first, Iter last, Iter pat_beg, Iter pat_end)
 {
@@ -89,29 +89,29 @@ patmatch(Iter first, Iter last, Iter pat_beg, Iter pat_end)
         return {};
     }
 
-	auto pathash = rolling_hash(pat_beg, pat_end);
+    auto pathash = rolling_hash(pat_beg, pat_end);
 
-	// Compute the hash using a window of size patlen.
-	auto end = first + patlen;
-	auto seqhash = rolling_hash(first, end);
+    // Compute the hash using a window of size patlen.
+    auto end = first + patlen;
+    auto seqhash = rolling_hash(first, end);
 
-	// Handle edge case of match at start of sequence.
-	if (pathash == seqhash && std::equal(first, end, pat_beg, pat_end)) {
-		return first; // Return iterator to start of pattern.
-	}
-	++first, ++end;
+    // Handle edge case of match at start of sequence.
+    if (pathash == seqhash && std::equal(first, end, pat_beg, pat_end)) {
+        return first; // Return iterator to start of pattern.
+    }
+    ++first, ++end;
 
     auto search_end = last - (patlen-1);
     while (first != search_end) {
-		// Update the rolling hash with the next value in the sequence.
-		seqhash = rolling_hash(first, end, seqhash);
+        // Update the rolling hash with the next value in the sequence.
+        seqhash = rolling_hash(first, end, seqhash);
 
-		// If the hashes match, avoid false positive with full comparison.
-		if (pathash == seqhash && std::equal(first, end, pat_beg, pat_end)) {
-			return first; // Return iterator to start of pattern.
-		}
+        // If the hashes match, avoid false positive with full comparison.
+        if (pathash == seqhash && std::equal(first, end, pat_beg, pat_end)) {
+            return first; // Return iterator to start of pattern.
+        }
 
-		// Advance the window.
+        // Advance the window.
         ++first, ++end;
     }
 
@@ -193,68 +193,68 @@ TEST_CASE("random", "[patmatch]")
 {
     using T = std::uint32_t;
 
-	// Use case is long sequence and range of pattern lengths.
-	std::size_t sequencelen{10000};
-	//std::size_t sequencelen{10};
-	std::vector<std::size_t> patlens{32,64,128,256,512,1024};
-	//std::vector<std::size_t> patlens{5};
+    // Use case is long sequence and range of pattern lengths.
+    std::size_t sequencelen{10000};
+    //std::size_t sequencelen{10};
+    std::vector<std::size_t> patlens{32,64,128,256,512,1024};
+    //std::vector<std::size_t> patlens{5};
 
     // Random sample parameters.
     std::mt19937 gen{std::random_device{}()};
-	std::uniform_int_distribution<> dis(0, sequencelen-1);
+    std::uniform_int_distribution<> dis(0, sequencelen-1);
 
-	std::size_t repeat{100};
+    std::size_t repeat{100};
 
-	// Initialize monotonic sequence from [1,sequencelen].
-	std::vector<T> sequence(sequencelen);
-	std::iota(std::begin(sequence), std::end(sequence), T{1});
+    // Initialize monotonic sequence from [1,sequencelen].
+    std::vector<T> sequence(sequencelen);
+    std::iota(std::begin(sequence), std::end(sequence), T{1});
 
-	// Reserve buffer for longest pattern.
-	std::vector<T> pattern(patlens.back());
+    // Reserve buffer for longest pattern.
+    std::vector<T> pattern(patlens.back());
 
-	// Repeat the following steps for each pattern length tested.
-	// 1. Shuffle the sequence.
-	// 2. Select a random index from within the sequence.
-	// 3. Copy the elements from the sequence to the pattern.
-	// 4. Confirm the returned index matches the index from step 2.
-	// 5. Shuffle the pattern.
-	// 6. As a negative test, confirm the pattern does not match sequence.
-	do {
-		for (const auto& patlen : patlens) {
-			CAPTURE(repeat, sequencelen, patlen);
+    // Repeat the following steps for each pattern length tested.
+    // 1. Shuffle the sequence.
+    // 2. Select a random index from within the sequence.
+    // 3. Copy the elements from the sequence to the pattern.
+    // 4. Confirm the returned index matches the index from step 2.
+    // 5. Shuffle the pattern.
+    // 6. As a negative test, confirm the pattern does not match sequence.
+    do {
+        for (const auto& patlen : patlens) {
+            CAPTURE(repeat, sequencelen, patlen);
 
-			// Setup sequence and pattern.
-			std::shuffle(std::begin(sequence), std::end(sequence), gen);
-			auto ind = dis(gen);
-			if (ind+patlen > sequencelen) {
-				ind -= (sequencelen-patlen);
-			}
-			std::copy(std::begin(sequence)+ind,
-					  std::begin(sequence)+ind+patlen,
-					  std::begin(pattern));
+            // Setup sequence and pattern.
+            std::shuffle(std::begin(sequence), std::end(sequence), gen);
+            auto ind = dis(gen);
+            if (ind+patlen > sequencelen) {
+                ind -= (sequencelen-patlen);
+            }
+            std::copy(std::begin(sequence)+ind,
+                      std::begin(sequence)+ind+patlen,
+                      std::begin(pattern));
 
-			// Positive test.
-			{
-				auto rcv = patmatch(std::begin(sequence), std::end(sequence),
-									std::begin(pattern),
-									std::begin(pattern)+patlen);
-				REQUIRE(bool(rcv) == true);
-				// Convert iterator to index.
-				auto rcv_ind = std::distance(std::begin(sequence), *rcv);
-				REQUIRE(rcv_ind == ind);
-			}
+            // Positive test.
+            {
+                auto rcv = patmatch(std::begin(sequence), std::end(sequence),
+                                    std::begin(pattern),
+                                    std::begin(pattern)+patlen);
+                REQUIRE(bool(rcv) == true);
+                // Convert iterator to index.
+                auto rcv_ind = std::distance(std::begin(sequence), *rcv);
+                REQUIRE(rcv_ind == ind);
+            }
 
-			// Negative test.
-			{
-				std::shuffle(std::begin(pattern), std::begin(pattern)+patlen,
-							 gen);
-				auto rcv = patmatch(std::begin(sequence), std::end(sequence),
-									std::begin(pattern),
-									std::begin(pattern)+patlen);
-				REQUIRE(bool(rcv) == false);
-			}
-		}
+            // Negative test.
+            {
+                std::shuffle(std::begin(pattern), std::begin(pattern)+patlen,
+                             gen);
+                auto rcv = patmatch(std::begin(sequence), std::end(sequence),
+                                    std::begin(pattern),
+                                    std::begin(pattern)+patlen);
+                REQUIRE(bool(rcv) == false);
+            }
+        }
 
-		--repeat;
-	} while(repeat > std::size_t{0});
+        --repeat;
+    } while(repeat > std::size_t{0});
 }
