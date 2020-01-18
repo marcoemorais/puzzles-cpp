@@ -12,7 +12,8 @@ DIRS := \
 	hash/patmatch \
 	heap/topkmovies \
 	random/urngfromflip \
-	sort/mwaymergesort
+	sort/mwaymergesort \
+	string/anagrams
 
 .PHONY: all $(DIRS)
 
