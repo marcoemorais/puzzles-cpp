@@ -39,8 +39,8 @@ keys in the map.
 The key comparison can be replaced with an empty map comparison by defining
 the entries in the map to have the following meanings:
 * 0  = character appears in window and s
-* >0 = abundance of characters from s in window
-* <0 = character not in s appears in window
+* &gt;0 = abundance of characters from s in window
+* &lt;0 = character not in s appears in window
 
 Given the invariants described above, an anagram will only have 0-valued
 entries in the map.  Rather than checking whether all entries are 0-valued,
