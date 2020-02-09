@@ -11,6 +11,7 @@ DIRS := \
 	graph/stepword \
 	hash/patmatch \
 	heap/topkmovies \
+	random/randstream \
 	random/urngfromflip \
 	sort/mwaymergesort \
 	string/anagrams
