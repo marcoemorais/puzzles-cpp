@@ -14,7 +14,8 @@ DIRS := \
 	random/randstream \
 	random/urngfromflip \
 	sort/mwaymergesort \
-	string/anagrams
+	string/anagrams \
+	tree/binaryindexed
 
 .PHONY: all $(DIRS)
 
