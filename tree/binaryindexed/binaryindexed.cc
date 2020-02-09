@@ -48,7 +48,7 @@ class BinaryIndexedTree
     }
 
     // cumsum returns cumulative sum of bins from [t0, t1].
-    T cumsum(std::size_t t0, std::size_t t1)
+    T cumsum(std::size_t t0, std::size_t t1) const
     {
         assert(t0 > 0); // t0 must start from 1.
         assert(t1 >= t0);
