@@ -38,7 +38,7 @@ spiral2d(const Matrix<T>& m, MatrixVisitor& visitor)
     // leftlim, rightlim, downlim, and uplim are limits of travel.
     // limits are dynamically adjusted during traversal to spiral inward.
     size_t leftlim = 0, rightlim = ncol-1,
-           downlim = nrow-1, uplim = 0;
+           downlim = nrow-1, uplim = 1;
 
     // Keep iterating until every cell is visited.
     while (visited != ncells) {
@@ -48,36 +48,28 @@ spiral2d(const Matrix<T>& m, MatrixVisitor& visitor)
 
         // Increment the indices and toggle direction.
         if (move == right) {
+            ++j;
             if (j == rightlim) {
                 move = down;
-                i += 1;
-                uplim = i;
-            } else {
-                ++j;
+                rightlim -= 1;
             }
         } else if (move == down) {
+            ++i;
             if (i == downlim) {
                 move = left;
-                j -= 1;
-                rightlim = j;
-            } else {
-                ++i;
+                downlim -= 1;
             }
         } else if (move == left) {
+            --j;
             if (j == leftlim) {
                 move = up;
-                i -= 1;
-                downlim = i;
-            } else {
-                --j;
+                leftlim += 1;
             }
         } else if (move == up) {
+            --i;
             if (i == uplim) {
                 move = right;
-                j += 1;
-                leftlim = j;
-            } else {
-                --i;
+                uplim += 1;
             }
         }
 
